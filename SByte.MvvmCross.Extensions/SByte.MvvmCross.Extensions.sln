@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SByte.MvvmCross.Extensions", "SByte.MvvmCross.Extensions\SByte.MvvmCross.Extensions.csproj", "{0AD4B696-2DE3-4AF5-8A5C-50A0A4E562FF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SByte.MvvmCross.Extensions.Tests", "SByte.MvvmCross.Extensions.Tests\SByte.MvvmCross.Extensions.Tests.csproj", "{2F266E13-573B-4BED-A71A-72B98782FA1E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0AD4B696-2DE3-4AF5-8A5C-50A0A4E562FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0AD4B696-2DE3-4AF5-8A5C-50A0A4E562FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0AD4B696-2DE3-4AF5-8A5C-50A0A4E562FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0AD4B696-2DE3-4AF5-8A5C-50A0A4E562FF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2F266E13-573B-4BED-A71A-72B98782FA1E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2F266E13-573B-4BED-A71A-72B98782FA1E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2F266E13-573B-4BED-A71A-72B98782FA1E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2F266E13-573B-4BED-A71A-72B98782FA1E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
