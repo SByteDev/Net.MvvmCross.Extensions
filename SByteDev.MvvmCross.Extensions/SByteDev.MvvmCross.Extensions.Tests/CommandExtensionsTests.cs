@@ -6,7 +6,7 @@ using MvvmCross.Commands;
 using NSubstitute;
 using NUnit.Framework;
 
-namespace SByte.MvvmCross.Extensions.Tests
+namespace SByteDev.MvvmCross.Extensions.Tests
 {
     [TestFixture]
     public class CommandExtensionsTests

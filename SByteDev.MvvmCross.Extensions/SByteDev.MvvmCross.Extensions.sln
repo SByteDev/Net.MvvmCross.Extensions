@@ -1,8 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SByte.MvvmCross.Extensions", "SByte.MvvmCross.Extensions\SByte.MvvmCross.Extensions.csproj", "{0AD4B696-2DE3-4AF5-8A5C-50A0A4E562FF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SByteDev.MvvmCross.Extensions", "SByteDev.MvvmCross.Extensions\SByteDev.MvvmCross.Extensions.csproj", "{0AD4B696-2DE3-4AF5-8A5C-50A0A4E562FF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SByte.MvvmCross.Extensions.Tests", "SByte.MvvmCross.Extensions.Tests\SByte.MvvmCross.Extensions.Tests.csproj", "{2F266E13-573B-4BED-A71A-72B98782FA1E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SByteDev.MvvmCross.Extensions.Tests", "SByteDev.MvvmCross.Extensions.Tests\SByteDev.MvvmCross.Extensions.Tests.csproj", "{2F266E13-573B-4BED-A71A-72B98782FA1E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

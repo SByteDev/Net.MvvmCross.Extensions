@@ -3,20 +3,21 @@
     <PropertyGroup>
         <TargetFramework>netstandard2.0</TargetFramework>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-        <PackageId>SByte.MvvmCross.Extensions</PackageId>
+        <PackageId>SByteDev.MvvmCross.Extensions</PackageId>
         <Title>MvvmCross Extensions</Title>
         <Authors>Denys Fiediaiev</Authors>
         <Description>A collection of extensions for MvvmCross.</Description>
         <Copyright>Denys Fiediaiev</Copyright>
         <PackageTags>mvvmcross, extensions</PackageTags>
-        <PackageProjectUrl>https://github.com/Prin53/DotNet.MvvmCross.Extensions</PackageProjectUrl>
-        <PackageLicenseUrl>https://github.com/Prin53/DotNet.MvvmCross.Extensions/blob/master/LICENSE</PackageLicenseUrl>
-        <RepositoryUrl>https://github.com/Prin53/DotNet.MvvmCross.Extensions</RepositoryUrl>
+        <PackageProjectUrl>https://github.com/SByteDev/DotNet.MvvmCross.Extensions</PackageProjectUrl>
+        <PackageLicenseUrl>https://github.com/SByteDev/DotNet.MvvmCross.Extensions/blob/master/LICENSE</PackageLicenseUrl>
+        <RepositoryUrl>https://github.com/SByteDev/DotNet.MvvmCross.Extensions</RepositoryUrl>
+        <PackageVersion>1.0.2</PackageVersion>
     </PropertyGroup>
 
     <ItemGroup>
       <PackageReference Include="MvvmCross" Version="6.3.1" />
-      <PackageReference Include="SByte.Common.Extensions" Version="1.0.0" />
+      <PackageReference Include="SByteDev.Common.Extensions" Version="1.0.2" />
     </ItemGroup>
 
 </Project>
