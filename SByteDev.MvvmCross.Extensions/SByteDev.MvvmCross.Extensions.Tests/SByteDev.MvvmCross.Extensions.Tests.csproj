@@ -15,7 +15,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\SByte.MvvmCross.Extensions\SByte.MvvmCross.Extensions.csproj" />
+      <ProjectReference Include="..\SByteDev.MvvmCross.Extensions\SByteDev.MvvmCross.Extensions.csproj" />
     </ItemGroup>
 
 </Project>

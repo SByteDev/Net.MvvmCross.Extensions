@@ -7,9 +7,9 @@ using System.Windows.Input;
 using MvvmCross.Base;
 using MvvmCross.Commands;
 using MvvmCross.WeakSubscription;
-using SByte.Common.Extensions;
+using SByteDev.Common.Extensions;
 
-namespace SByte.MvvmCross.Extensions
+namespace SByteDev.MvvmCross.Extensions
 {
     public static class CommandExtensions
     {
