@@ -19,7 +19,7 @@ namespace SByteDev.MvvmCross.Extensions
         /// </summary>
         /// <param name="command">The command itself.</param>
         /// <param name="parameter">An optional parameter.</param>
-        /// <returns>True if the command was invoked and False otherwise.</returns>
+        /// <returns>T<c>True</c> if the command was invoked and <c>False</c> otherwise.</returns>
         public static async Task<bool> SafeExecuteAsync(this ICommand command, object parameter = null)
         {
             if (!command.SafeCanExecute(parameter))
@@ -35,6 +35,28 @@ namespace SByteDev.MvvmCross.Extensions
             {
                 command.Execute(parameter);
             }
+
+            return true;
+        }
+
+        /// <summary>
+        /// Tries to cast the command to <c>MvxAsyncCommand</c> and cancels execution if command is running.
+        /// </summary>
+        /// <param name="command">The command itself.</param>
+        /// <returns><c>True</c> if the command was cancelled and <c>False</c> otherwise.</returns>
+        public static bool CancelExecution(this ICommand command)
+        {
+            if (!(command is MvxAsyncCommand asyncCommand))
+            {
+                return false;
+            }
+
+            if (!asyncCommand.IsRunning)
+            {
+                return false;
+            }
+
+            asyncCommand.Cancel();
 
             return true;
         }
