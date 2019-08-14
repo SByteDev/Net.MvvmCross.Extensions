@@ -1,12 +1,9 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using MvvmCross.Base;
 using MvvmCross.Commands;
-using MvvmCross.WeakSubscription;
 using SByteDev.Common.Extensions;
 
 namespace SByteDev.MvvmCross.Extensions
@@ -93,16 +90,7 @@ namespace SByteDev.MvvmCross.Extensions
                 return null;
             }
 
-            return notifyPropertyChanged.WeakSubscribe((_, args) =>
-            {
-                if (properties.All(item =>
-                    notifyPropertyChanged.GetPropertyNameFromExpression(item) != args.PropertyName))
-                {
-                    return;
-                }
-
-                mvxCommand.RaiseCanExecuteChanged();
-            });
+            return new RelayCommandSubscription(mvxCommand, notifyPropertyChanged, properties);
         }
     }
 }

@@ -256,20 +256,24 @@ namespace SByteDev.MvvmCross.Extensions.Tests
                 [TestFixture]
                 public class AndSuitablePropertyChangedFired
                 {
-                    [Test]
-                    public void ShouldRaiseCanExecuteChanged()
+                    [TestFixture]
+                    public class AndSubscriptionIsAlive
                     {
-                        var notifyPropertyChanged = Substitute.For<ITestNotifyPropertyChanged>();
-                        var command = Substitute.For<IMvxCommand>();
+                        [Test]
+                        public void ShouldRaiseCanExecuteChanged()
+                        {
+                            var notifyPropertyChanged = Substitute.For<ITestNotifyPropertyChanged>();
+                            var command = Substitute.For<IMvxCommand>();
 
-                        var _ = command.RelayOn(notifyPropertyChanged, () => notifyPropertyChanged.FirstProperty);
+                            var _ = command.RelayOn(notifyPropertyChanged, () => notifyPropertyChanged.FirstProperty);
 
-                        notifyPropertyChanged.PropertyChanged += Raise.Event<PropertyChangedEventHandler>(
-                            new PropertyChangedEventArgs(
-                                nameof(ITestNotifyPropertyChanged.FirstProperty)
-                            ));
+                            notifyPropertyChanged.PropertyChanged += Raise.Event<PropertyChangedEventHandler>(
+                                new PropertyChangedEventArgs(
+                                    nameof(ITestNotifyPropertyChanged.FirstProperty)
+                                ));
 
-                        command.Received().RaiseCanExecuteChanged();
+                            command.Received().RaiseCanExecuteChanged();
+                        }
                     }
 
                     [TestFixture]
@@ -299,10 +303,33 @@ namespace SByteDev.MvvmCross.Extensions.Tests
                 }
 
                 [TestFixture]
+                public class AndAllPropertiesChangedFired
+                {
+                    [TestFixture]
+                    public class AndSubscriptionIsAlive
+                    {
+                        [Test]
+                        public void ShouldRaiseCanExecuteChanged()
+                        {
+                            var notifyPropertyChanged = Substitute.For<INotifyPropertyChanged>();
+                            var command = Substitute.For<IMvxCommand>();
+
+                            var _ = command.RelayOn(notifyPropertyChanged);
+
+                            notifyPropertyChanged.PropertyChanged += Raise.Event<PropertyChangedEventHandler>(
+                                new PropertyChangedEventArgs(string.Empty)
+                            );
+
+                            command.Received().RaiseCanExecuteChanged();
+                        }
+                    }
+                }
+
+                [TestFixture]
                 public class AndNotSuitablePropertyChangedFired
                 {
                     [Test]
-                    public void ShouldRaiseCanExecuteChanged()
+                    public void ShouldNotRaiseCanExecuteChanged()
                     {
                         var notifyPropertyChanged = Substitute.For<ITestNotifyPropertyChanged>();
                         var command = Substitute.For<IMvxCommand>();
