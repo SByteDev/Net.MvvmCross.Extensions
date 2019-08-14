@@ -4,15 +4,21 @@
         <TargetFramework>netstandard2.0</TargetFramework>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <PackageId>SByteDev.MvvmCross.Extensions</PackageId>
+        <PackageVersion>1.0.3</PackageVersion>
         <Title>MvvmCross Extensions</Title>
-        <Authors>Denys Fiediaiev</Authors>
         <Description>A collection of extensions for MvvmCross.</Description>
-        <Copyright>Denys Fiediaiev</Copyright>
+        <Copyright>SByteDev</Copyright>
+        <Authors>Prin53, SByteDev</Authors>
+        <Owners>Prin53, SByteDev</Owners>
+        <NeutralLanguage>en</NeutralLanguage>
         <PackageTags>mvvmcross, extensions</PackageTags>
-        <PackageProjectUrl>https://github.com/SByteDev/DotNet.MvvmCross.Extensions</PackageProjectUrl>
-        <PackageLicenseUrl>https://github.com/SByteDev/DotNet.MvvmCross.Extensions/blob/master/LICENSE</PackageLicenseUrl>
-        <RepositoryUrl>https://github.com/SByteDev/DotNet.MvvmCross.Extensions</RepositoryUrl>
-        <PackageVersion>1.0.2</PackageVersion>
+        <PackageIconUrl>https://i.imgur.com/DtkfyPTm.jpg</PackageIconUrl>
+        <PackageProjectUrl>https://github.com/SByteDev/Net.MvvmCross.Extensions</PackageProjectUrl>
+        <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <PublishRepositoryUrl>true</PublishRepositoryUrl>
+        <RepositoryType>git</RepositoryType>
+        <RepositoryUrl>https://github.com/SByteDev/Net.MvvmCross.Extensions</RepositoryUrl>
     </PropertyGroup>
 
     <ItemGroup>

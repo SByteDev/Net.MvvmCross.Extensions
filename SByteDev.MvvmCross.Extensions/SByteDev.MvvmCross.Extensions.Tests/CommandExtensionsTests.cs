@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using MvvmCross.Commands;
+using MvvmCross.Tests;
 using NSubstitute;
 using NUnit.Framework;
 
@@ -47,7 +48,7 @@ namespace SByteDev.MvvmCross.Extensions.Tests
 
                     var result = await command.SafeExecuteAsync(parameter).ConfigureAwait(false);
 
-                    Assert.False(result);
+                    Assert.IsFalse(result);
                 }
 
                 [Test]
@@ -89,7 +90,7 @@ namespace SByteDev.MvvmCross.Extensions.Tests
 
                         var result = await command.SafeExecuteAsync(parameter).ConfigureAwait(false);
 
-                        Assert.True(result);
+                        Assert.IsTrue(result);
                     }
                 }
 
@@ -117,8 +118,80 @@ namespace SByteDev.MvvmCross.Extensions.Tests
 
                         var result = await command.SafeExecuteAsync(parameter).ConfigureAwait(false);
 
-                        Assert.True(result);
+                        Assert.IsTrue(result);
                     }
+                }
+            }
+        }
+
+        [TestFixture]
+        public class WhenCancelExecutionCalled
+        {
+            [TestFixture]
+            public class AndTheCommandIsNull
+            {
+                [Test]
+                public void ExceptionsShouldNotBeThrown()
+                {
+                    Assert.DoesNotThrow(() => default(ICommand).CancelExecution());
+                }
+
+                [Test]
+                public void ShouldReturnFalse()
+                {
+                    Assert.IsFalse(default(ICommand).CancelExecution());
+                }
+            }
+
+            [TestFixture]
+            public class AndTheCommandIsNotMvxAsyncCommand
+            {
+                [Test]
+                public void ShouldReturnFalse()
+                {
+                    Assert.IsFalse(Substitute.For<ICommand>().CancelExecution());
+                }
+            }
+
+            [TestFixture]
+            public class AndTheCommandIsNotRunning
+            {
+                [Test]
+                public void ShouldReturnFalse()
+                {
+                    var command = new MvxAsyncCommand(() => Task.Delay(TimeSpan.FromMilliseconds(5)));
+
+                    Assert.IsFalse(command.CancelExecution());
+                }
+            }
+
+            [TestFixture]
+            public class AndTheCommandIsRunning : MvxIoCSupportingTest
+            {
+                [Test]
+                public void ShouldReturnTrue()
+                {
+                    var command = new MvxAsyncCommand(() => Task.Delay(TimeSpan.FromSeconds(1)));
+
+                    command.Execute();
+
+                    Assert.IsTrue(command.CancelExecution());
+                }
+
+                [Test]
+                public void ShouldCancelCommandExecution()
+                {
+                    Setup();
+
+                    var task = default(Task);
+                    var command = new MvxAsyncCommand(
+                        cancellationToken => task = Task.Delay(TimeSpan.FromSeconds(1), cancellationToken)
+                    );
+
+                    command.Execute();
+                    command.CancelExecution();
+
+                    Assert.IsTrue(task.IsCanceled);
                 }
             }
         }
@@ -157,7 +230,7 @@ namespace SByteDev.MvvmCross.Extensions.Tests
                     var notifyPropertyChanged = Substitute.For<INotifyPropertyChanged>();
                     var command = Substitute.For<ICommand>();
 
-                    Assert.Null(command.RelayOn(notifyPropertyChanged));
+                    Assert.IsNull(command.RelayOn(notifyPropertyChanged));
                 }
             }
 
@@ -177,26 +250,30 @@ namespace SByteDev.MvvmCross.Extensions.Tests
                     var notifyPropertyChanged = Substitute.For<INotifyPropertyChanged>();
                     var command = Substitute.For<IMvxCommand>();
 
-                    Assert.NotNull(command.RelayOn(notifyPropertyChanged));
+                    Assert.IsNotNull(command.RelayOn(notifyPropertyChanged));
                 }
 
                 [TestFixture]
                 public class AndSuitablePropertyChangedFired
                 {
-                    [Test]
-                    public void ShouldRaiseCanExecuteChanged()
+                    [TestFixture]
+                    public class AndSubscriptionIsAlive
                     {
-                        var notifyPropertyChanged = Substitute.For<ITestNotifyPropertyChanged>();
-                        var command = Substitute.For<IMvxCommand>();
+                        [Test]
+                        public void ShouldRaiseCanExecuteChanged()
+                        {
+                            var notifyPropertyChanged = Substitute.For<ITestNotifyPropertyChanged>();
+                            var command = Substitute.For<IMvxCommand>();
 
-                        var _ = command.RelayOn(notifyPropertyChanged, () => notifyPropertyChanged.FirstProperty);
+                            var _ = command.RelayOn(notifyPropertyChanged, () => notifyPropertyChanged.FirstProperty);
 
-                        notifyPropertyChanged.PropertyChanged += Raise.Event<PropertyChangedEventHandler>(
-                            new PropertyChangedEventArgs(
-                                nameof(ITestNotifyPropertyChanged.FirstProperty)
-                            ));
+                            notifyPropertyChanged.PropertyChanged += Raise.Event<PropertyChangedEventHandler>(
+                                new PropertyChangedEventArgs(
+                                    nameof(ITestNotifyPropertyChanged.FirstProperty)
+                                ));
 
-                        command.Received().RaiseCanExecuteChanged();
+                            command.Received().RaiseCanExecuteChanged();
+                        }
                     }
 
                     [TestFixture]
@@ -226,10 +303,33 @@ namespace SByteDev.MvvmCross.Extensions.Tests
                 }
 
                 [TestFixture]
+                public class AndAllPropertiesChangedFired
+                {
+                    [TestFixture]
+                    public class AndSubscriptionIsAlive
+                    {
+                        [Test]
+                        public void ShouldRaiseCanExecuteChanged()
+                        {
+                            var notifyPropertyChanged = Substitute.For<INotifyPropertyChanged>();
+                            var command = Substitute.For<IMvxCommand>();
+
+                            var _ = command.RelayOn(notifyPropertyChanged);
+
+                            notifyPropertyChanged.PropertyChanged += Raise.Event<PropertyChangedEventHandler>(
+                                new PropertyChangedEventArgs(string.Empty)
+                            );
+
+                            command.Received().RaiseCanExecuteChanged();
+                        }
+                    }
+                }
+
+                [TestFixture]
                 public class AndNotSuitablePropertyChangedFired
                 {
                     [Test]
-                    public void ShouldRaiseCanExecuteChanged()
+                    public void ShouldNotRaiseCanExecuteChanged()
                     {
                         var notifyPropertyChanged = Substitute.For<ITestNotifyPropertyChanged>();
                         var command = Substitute.For<IMvxCommand>();
