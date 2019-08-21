@@ -2,7 +2,7 @@
 ![GitHub](https://img.shields.io/github/license/SByteDev/Net.MvvmCross.Extensions.svg)
 ![Nuget](https://img.shields.io/nuget/v/SByteDev.MvvmCross.Extensions.svg)
 
-Extensions is a .Net Standard library with common extensions and helpers or [MvvmCross](https://github.com/MvvmCross/MvvmCross).
+Extensions is a .Net Standard library with common extensions and helpers for [MvvmCross](https://github.com/MvvmCross/MvvmCross).
 
 ## Installation
 
@@ -37,6 +37,27 @@ Subscription = Command.RelayOn(
     NotifyPropertyChanged,
     () => NotifyPropertyChanged.Property
 );
+```
+
+### IEnumerable Extensions
+To transform a two-dimensional collection or an `ObservableCollection` into a single-dimensional collection and keep the `CollectionChanged` events:
+
+```cs
+Items = new ObservableCollection<ObservableCollection<int>>
+{
+    new ObservableCollection<int> { 1, 2 },
+    new ObservableCollection<int> { 3 }
+};
+
+IEnumerable<int> flatItems = Items.ObservableFlatten();
+```
+
+To transform each element of a collection into a new form and keep the `CollectionChanged` events:
+
+```cs
+Items = new ObservableCollection<int> {1, 2, 3, 4, 5, 6};
+
+IEnumerable<string> wrappedItems = Items.ObservableSelect(item => item.ToString());
 ```
 
 ## Contributing
