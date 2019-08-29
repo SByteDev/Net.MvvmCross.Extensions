@@ -1,18 +1,14 @@
 using System;
 using System.ComponentModel;
-using System.Linq;
 using System.Linq.Expressions;
-using MvvmCross.Base;
 using MvvmCross.Commands;
-using MvvmCross.WeakSubscription;
 
 namespace SByteDev.MvvmCross.Extensions
 {
     internal class RelayCommandSubscription : IDisposable
     {
-        private IMvxCommand _command;
-        private INotifyPropertyChanged _propertyChanged;
-        private Expression<Func<object>>[] _properties;
+        private readonly WeakReference<IMvxCommand> _commandReference;
+
         private IDisposable _subscription;
 
         public RelayCommandSubscription(
@@ -21,44 +17,41 @@ namespace SByteDev.MvvmCross.Extensions
             Expression<Func<object>>[] properties
         )
         {
-            _command = command ?? throw new ArgumentNullException(nameof(command));
-            _propertyChanged = propertyChanged ?? throw new ArgumentNullException(nameof(propertyChanged));
-            _properties = properties ?? throw new ArgumentNullException(nameof(_properties));
+            if (command == null)
+            {
+                throw new ArgumentNullException(nameof(command));
+            }
 
-            _subscription = _propertyChanged.WeakSubscribe(OnPropertyChanged);
+            if (propertyChanged == null)
+            {
+                throw new ArgumentNullException(nameof(propertyChanged));
+            }
+
+            if (properties == null)
+            {
+                throw new ArgumentNullException(nameof(properties));
+            }
+
+            _commandReference = new WeakReference<IMvxCommand>(command);
+
+            _subscription = propertyChanged.WeakSubscribe(OnPropertyChanged, properties);
         }
 
         private void OnPropertyChanged(object _, PropertyChangedEventArgs args)
         {
-            var properties = _properties;
-            var propertyChanged = _propertyChanged;
-
-            if (properties == null || propertyChanged == null)
+            if (_commandReference.TryGetTarget(out var command))
             {
-                return;
+                command.RaiseCanExecuteChanged();
             }
-
-            if (string.IsNullOrWhiteSpace(args.PropertyName))
+            else
             {
-                _command?.RaiseCanExecuteChanged();
-
-                return;
+                _subscription?.Dispose();
+                _subscription = null;
             }
-
-            if (properties.All(item => propertyChanged.GetPropertyNameFromExpression(item) != args.PropertyName))
-            {
-                return;
-            }
-
-            _command?.RaiseCanExecuteChanged();
         }
 
         public void Dispose()
         {
-            _command = null;
-            _propertyChanged = null;
-            _properties = null;
-
             _subscription?.Dispose();
             _subscription = null;
         }
