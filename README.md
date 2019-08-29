@@ -2,6 +2,10 @@
 ![GitHub](https://img.shields.io/github/license/SByteDev/Net.MvvmCross.Extensions.svg)
 ![Nuget](https://img.shields.io/nuget/v/SByteDev.MvvmCross.Extensions.svg)
 
+[![Build Status](https://travis-ci.org/SByteDev/Net.MvvmCross.Extensions.svg?branch=master)](https://travis-ci.org/SByteDev/Net.MvvmCross.Extensions)
+[![codecov](https://codecov.io/gh/SByteDev/Net.MvvmCross.Extensions/branch/master/graph/badge.svg)](https://codecov.io/gh/SByteDev/Net.MvvmCross.Extensions)
+[![CodeFactor](https://www.codefactor.io/repository/github/sbytedev/net.mvvmcross.extensions/badge)](https://www.codefactor.io/repository/github/sbytedev/net.mvvmcross.extensions)
+
 Extensions is a .Net Standard library with common extensions and helpers for [MvvmCross](https://github.com/MvvmCross/MvvmCross).
 
 ## Installation
@@ -58,6 +62,13 @@ To transform each element of a collection into a new form and keep the `Collecti
 Items = new ObservableCollection<int> {1, 2, 3, 4, 5, 6};
 
 IEnumerable<string> wrappedItems = Items.ObservableSelect(item => item.ToString());
+```
+
+### INotifyPropertyChanged Extensions
+To subscribe for changes of `INotifyPropertyChanged` properties:
+
+```cs
+Subscription = this.WeakSubscribe(EventHandler, () => PropertyOne, () => PropertyTwo);
 ```
 
 ## Contributing

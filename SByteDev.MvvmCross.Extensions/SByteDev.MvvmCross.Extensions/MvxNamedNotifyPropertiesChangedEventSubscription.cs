@@ -13,18 +13,18 @@ namespace SByteDev.MvvmCross.Extensions
         private readonly string[] _propertyNames;
 
         public MvxNamedNotifyPropertiesChangedEventSubscription(
-            INotifyPropertyChanged source,
+            INotifyPropertyChanged propertyChanged,
             EventHandler<PropertyChangedEventArgs> targetEventHandler,
             params Expression<Func<object>>[] properties
         )
-            : base(source, targetEventHandler)
+            : base(propertyChanged, targetEventHandler)
         {
             if (properties == null)
             {
                 throw new ArgumentNullException(nameof(properties));
             }
 
-            _propertyNames = properties.Select(source.GetPropertyNameFromExpression).ToArray();
+            _propertyNames = properties.Select(propertyChanged.GetPropertyNameFromExpression).ToArray();
         }
 
         protected override Delegate CreateEventHandler()
