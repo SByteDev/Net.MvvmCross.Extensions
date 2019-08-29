@@ -237,13 +237,6 @@ namespace SByteDev.MvvmCross.Extensions.Tests
             [TestFixture]
             public class AndTheCommandIsMvxCommand
             {
-                // ReSharper disable once MemberCanBePrivate.Global
-                public interface ITestNotifyPropertyChanged : INotifyPropertyChanged
-                {
-                    string FirstProperty { get; }
-                    string SecondProperty { get; }
-                }
-
                 [Test]
                 public void ShouldNotReturnNull()
                 {
