@@ -151,7 +151,6 @@ namespace SByteDev.MvvmCross.Extensions.Tests
             }
         }
 
-
         [TestFixture]
         public class WhenItemsRemoved : MvxObservableCollectionTestBase
         {
@@ -200,7 +199,6 @@ namespace SByteDev.MvvmCross.Extensions.Tests
                 CollectionAssert.IsNotSubsetOf(oldItems, sut);
             }
         }
-
 
         [TestFixture]
         public class WhenItemsReplaced : MvxObservableCollectionTestBase
