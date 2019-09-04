@@ -636,5 +636,30 @@ namespace SByteDev.MvvmCross.Extensions.Tests
                 Assert.AreEqual(flatNewItems, sut);
             }
         }
+
+        [TestFixture]
+        public class WhenSeveralOperationsPerformedInSequence : MvxObservableCollectionTestBase
+        {
+            [Test]
+            public void OutputCollectionShouldBeCorrect()
+            {
+                Setup();
+
+                var items = new MvxObservableCollection<MvxObservableCollection<int>>
+                {
+                    new MvxObservableCollection<int> {1, 2}
+                };
+
+                var sut = new FlatObservableCollection<int>(items);
+
+                items.Add(new MvxObservableCollection<int> {3, 4, 5, 6});
+                items[0].ReplaceWith(new[] {1, 2, 0});
+                items[1].Add(8);
+                items[0].Move(2, 0);
+                items[1][4] = 7;
+
+                Assert.AreEqual(Enumerable.Range(0, 8), sut);
+            }
+        }
     }
 }
