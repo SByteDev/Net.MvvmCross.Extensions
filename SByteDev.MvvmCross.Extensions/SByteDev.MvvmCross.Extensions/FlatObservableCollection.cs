@@ -77,14 +77,12 @@ namespace SByteDev.MvvmCross.Extensions
         {
             var newArgs = UpdateSections(args);
 
+            CacheSourceItems();
+
             if (newArgs != null)
             {
                 RaiseCollectionChanged(newArgs);
-
-                return;
             }
-
-            CacheSourceItems();
         }
 
         private void OnSectionChanged(object sender, NotifyCollectionChangedEventArgs args)
@@ -103,14 +101,12 @@ namespace SByteDev.MvvmCross.Extensions
 
             var newArgs = UpdateSection(index, args);
 
+            CacheSourceItems();
+
             if (newArgs != null)
             {
                 RaiseCollectionChanged(newArgs);
-
-                return;
             }
-
-            CacheSourceItems();
         }
 
         private NotifyCollectionChangedEventArgs UpdateSections(NotifyCollectionChangedEventArgs args)
