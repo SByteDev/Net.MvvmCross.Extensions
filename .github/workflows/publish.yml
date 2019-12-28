@@ -1,0 +1,26 @@
+name: NuGet Publish
+
+on:
+  push:
+    branches:
+    - master
+
+jobs:
+  build:
+
+    runs-on: macos-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+    - name: Restore NuGet packages
+      run: msbuild SByteDev.MvvmCross.Extensions/SByteDev.MvvmCross.Extensions/SByteDev.MvvmCross.Extensions.csproj -t:restore -p:Configuration=Release
+    - name: Build using MSBuild
+      run: msbuild SByteDev.MvvmCross.Extensions/SByteDev.MvvmCross.Extensions/SByteDev.MvvmCross.Extensions.csproj -p:Configuration=Release
+    - name: Setup NuGet config
+      run: sed 's/GITHUB_TOKEN/${{ secrets.GITHUB_TOKEN }}/g' .nuget.config > nuget.config
+    - name: Upload package to GitHub Package Registry
+      run: nuget push SByteDev.MvvmCross.Extensions/SByteDev.MvvmCross.Extensions/bin/Release/*.nupkg -Source "github" -SkipDuplicate
+    - name: Upload package to NuGet
+      run: nuget push SByteDev.MvvmCross.Extensions/SByteDev.MvvmCross.Extensions/bin/Release/*.nupkg -Source "nuget" -ApiKey ${{ secrets.NUGET_API_KEY }} -SkipDuplicate
