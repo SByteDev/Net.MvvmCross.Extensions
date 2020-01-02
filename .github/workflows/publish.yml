@@ -18,6 +18,12 @@ jobs:
       run: msbuild SByteDev.MvvmCross.Extensions/SByteDev.MvvmCross.Extensions/SByteDev.MvvmCross.Extensions.csproj -t:restore -p:Configuration=Release
     - name: Build using MSBuild
       run: msbuild SByteDev.MvvmCross.Extensions/SByteDev.MvvmCross.Extensions/SByteDev.MvvmCross.Extensions.csproj -p:Configuration=Release
+    - name: Run Unit Tests
+      run: dotnet test SByteDev.MvvmCross.Extensions/SByteDev.MvvmCross.Extensions.Tests/SByteDev.MvvmCross.Extensions.Tests.csproj --collect:"XPlat Code Coverage"
+    - name: Upload Unit Tests report
+      uses: codecov/codecov-action@v1
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}
     - name: Setup NuGet config
       run: sed 's/GITHUB_TOKEN/${{ secrets.GITHUB_TOKEN }}/g' .nuget.config > nuget.config
     - name: Upload package to GitHub Package Registry
