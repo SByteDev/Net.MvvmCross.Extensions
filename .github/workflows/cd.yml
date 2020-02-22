@@ -8,21 +8,17 @@ jobs:
   build:
     
     runs-on: macos-latest
-    env:
-      working-directory: ./SByteDev.MvvmCross.Extensions
 
     steps:
     - uses: actions/checkout@v1
     - name: Setup
       uses: actions/setup-dotnet@v1
     - name: Pack
-      working-directory: ${{ env.working-directory }}
+      working-directory: ./SByteDev.MvvmCross.Extensions
       run: dotnet pack --configuration Release
     - name: NuGet Push
-      working-directory: ${{ env.working-directory }}
       run: nuget push /**/*.nupkg -SkipDuplicate -Source "nuget" -ApiKey ${{ secrets.NUGET_API_KEY }}
     - name: GitHub Package Registry Push
-      working-directory: ${{ env.working-directory }}
       run: |
         sed 's/GITHUB_TOKEN/${{ secrets.GITHUB_TOKEN }}/g' .nuget.config > nuget.config
         nuget push /**/*.nupkg -SkipDuplicate -Source "github"
