@@ -1,0 +1,16 @@
+name: CI
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: macos-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - uses: actions/setup-dotnet@v1
+    - working-directory: ./SByteDev.MvvmCross.Extensions
+      run: dotnet test --configuration Release /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:CoverletOutput='./Coverage.xml'
+    - uses: codecov/codecov-action@v1
+      with: 
+        token: ${{ secrets.CODECOV_TOKEN }}
