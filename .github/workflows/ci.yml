@@ -14,8 +14,8 @@ jobs:
     - name: Setup
       uses: actions/setup-dotnet@v1
     - name: Test
-      working-directory: ./SByteDev.MvvmCross.Extensions
-      run: dotnet test --configuration Release /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:CoverletOutput='./Coverage.xml'
-    - name: Upload Test Coverage
-      working-directory: ./SByteDev.MvvmCross.Extensions
+      working-directory: ${{ env.working-directory }}
+      run: dotnet test --configuration Release /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
+    - name: Test Coverage
+      working-directory: ${{ env.working-directory }}
       run: curl -s https://codecov.io/bash | bash -s -- -t ${{secrets.CODECOV_TOKEN}} -Z
