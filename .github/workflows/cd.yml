@@ -21,8 +21,8 @@ jobs:
     - name: NuGet Push
       working-directory: ${{ env.working-directory }}
       run: dotnet nuget push /**/*.nupkg --skip-duplicate --source nuget.org --api-key ${{secrets.NUGET_TOKEN}}
-    - name: GPR Push
+    - name: GitHub Package Registry Push
       working-directory: ${{ env.working-directory }}
       run: |
-        nuget sources add -name "GPR" -Source https://nuget.pkg.github.com/SByteDev/index.json -Username Prin53 -Password ${{ secrets.GITHUB_TOKEN }}
-        dotnet nuget push /**/*.nupkg --skip-duplicate --source GPR
+        sed 's/GITHUB_TOKEN/${{ secrets.GITHUB_TOKEN }}/g' .nuget.config > nuget.config
+        nuget push /**/*.nupkg -SkipDuplicate -Source "github"
