@@ -1,6 +1,9 @@
 name: CI
 
-on: [push, pull_request]
+on:
+  push:
+    branches:
+      - develop
 
 jobs:
   build:
@@ -10,12 +13,13 @@ jobs:
       working-directory: ./SByteDev.MvvmCross.Extensions
 
     steps:
-    - uses: actions/checkout@v1
+    - name: Checkout
+      uses: actions/checkout@v2.0.0
     - name: Setup
-      uses: actions/setup-dotnet@v1
+      uses: actions/setup-dotnet@v1.4.0
     - name: Test
       working-directory: ${{ env.working-directory }}
-      run: dotnet test --configuration Release /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
+      run: dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
     - name: Test Coverage
       working-directory: ${{ env.working-directory }}
       run: curl -s https://codecov.io/bash | bash -s -- -t ${{secrets.CODECOV_TOKEN}} -Z
