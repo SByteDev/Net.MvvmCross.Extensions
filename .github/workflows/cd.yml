@@ -20,7 +20,7 @@ jobs:
       run: dotnet pack --configuration Release
     - name: NuGet Push
       working-directory: ${{ env.working-directory }}
-      run: dotnet nuget push /**/*.nupkg --skip-duplicate --source nuget.org --api-key ${{ secrets.NUGET_TOKEN }}
+      run: nuget push /**/*.nupkg -SkipDuplicate -Source "nuget" -ApiKey ${{ secrets.NUGET_API_KEY }}
     - name: GitHub Package Registry Push
       working-directory: ${{ env.working-directory }}
       run: |
