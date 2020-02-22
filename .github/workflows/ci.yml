@@ -6,14 +6,11 @@ jobs:
   build:
     
     runs-on: macos-latest
-    env:
-      working-directory: ./SByteDev.MvvmCross.Extensions
 
     steps:
     - uses: actions/checkout@v1
     - uses: actions/setup-dotnet@v1
-    - working-directory: ${{ env.working-directory }}
-      run: dotnet test --configuration Release /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:CoverletOutput='./Coverage.xml'
-    - uses: codecov/codecov-action@v1
-      with: 
-        token: ${{ secrets.CODECOV_TOKEN }}
+    - working-directory: ./SByteDev.MvvmCross.Extensions
+      run: 
+        dotnet test --configuration Release /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:CoverletOutput='./Coverage.xml'
+        curl -s https://codecov.io/bash | bash -s -- -f Coverage.xml -t ${{secrets.CODECOV_TOKEN}} -Z
