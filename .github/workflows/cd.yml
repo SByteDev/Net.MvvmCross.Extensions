@@ -16,9 +16,9 @@ jobs:
     - name: Pack
       working-directory: ./SByteDev.MvvmCross.Extensions
       run: dotnet pack --configuration Release
+    - name: Setup NuGet config
+      run: sed 's/GITHUB_TOKEN/${{ secrets.GITHUB_TOKEN }}/g' .nuget.config > nuget.config
     - name: GitHub Package Registry Push
-      run: |
-        sed 's/GITHUB_TOKEN/${{ secrets.GITHUB_TOKEN }}/g' .nuget.config > nuget.config
-        nuget push /**/*.nupkg -Source "github" -SkipDuplicate
+      run: nuget push /**/*.nupkg -Source "github" -SkipDuplicate
     - name: NuGet Push
       run: nuget push /**/*.nupkg -Source "nuget" -ApiKey ${{ secrets.NUGET_API_KEY }} -SkipDuplicate
