@@ -10,9 +10,9 @@ jobs:
     runs-on: macos-latest
 
     steps:
-    - uses: actions/checkout@v2.0.0
+    - uses: actions/checkout@v1
     - name: Setup
-      uses: actions/setup-dotnet@v1.4.0
+      uses: actions/setup-dotnet@v1
     - name: Pack
       working-directory: ./SByteDev.MvvmCross.Extensions
       run: dotnet pack --configuration Release
