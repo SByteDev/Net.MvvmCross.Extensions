@@ -1,0 +1,28 @@
+name: CD
+
+on:
+  push:
+    branches: master
+
+jobs:
+  build:
+    
+    runs-on: macos-latest
+    env:
+      working-directory: ./SByteDev.MvvmCross.Extensions
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Setup
+      uses: actions/setup-dotnet@v1
+    - name: Pack
+      working-directory: ${{ env.working-directory }}
+      run: dotnet pack --configuration Release
+    - name: NuGet Push
+      working-directory: ${{ env.working-directory }}
+      run: dotnet nuget push /**/*.nupkg --skip-duplicate --source nuget.org --api-key ${{secrets.NUGET_TOKEN}}
+    - name: GPR Push
+      working-directory: ${{ env.working-directory }}
+      run: |
+        nuget sources add -name "GPR" -Source https://nuget.pkg.github.com/SByteDev/index.json -Username Prin53 -Password ${{ secrets.GITHUB_TOKEN }}
+        dotnet nuget push /**/*.nupkg --skip-duplicate --source GPR
