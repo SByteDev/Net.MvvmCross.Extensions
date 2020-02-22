@@ -11,6 +11,6 @@ jobs:
     - uses: actions/checkout@v1
     - uses: actions/setup-dotnet@v1
     - working-directory: ./SByteDev.MvvmCross.Extensions
-      run: | 
+      run: 
         dotnet test --configuration Release /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:CoverletOutput='./Coverage.xml'
-        curl -s https://codecov.io/bash | bash -s -- -f Coverage.xml -t ${{secrets.CODECOV_TOKEN}} -Z
+        curl -s https://codecov.io/bash | bash -s -- -f ./Coverage.xml -t ${{secrets.CODECOV_TOKEN}} -Z
