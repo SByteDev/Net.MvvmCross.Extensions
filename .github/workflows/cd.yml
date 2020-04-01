@@ -18,8 +18,10 @@ jobs:
     - name: Pack
       working-directory: ./SByteDev.MvvmCross.Extensions
       run: dotnet pack --configuration Release
+    - name: Push to NuGet
+      run: dotnet nuget push /**/*.nupkg --skip-duplicate
     - name: Setup NuGet
-      uses: actions/setup-dotnet@v1
+      uses: actions/setup-dotnet@v1.4.0
       with:
         source-url: https://api.nuget.org/v3/index.json
       env:
