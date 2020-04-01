@@ -18,12 +18,6 @@ jobs:
     - name: Pack
       working-directory: ./SByteDev.MvvmCross.Extensions
       run: dotnet pack --configuration Release
-    - name: Setup GPR
-      uses: actions/setup-dotnet@v1.4.0
-      with:
-        source-url: https://nuget.pkg.github.com/SByteDev/index.json
-      env:
-        NUGET_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
     - name: Push to GPR
       run: dotnet nuget push /**/*.nupkg --skip-duplicate
     - name: Setup NuGet
