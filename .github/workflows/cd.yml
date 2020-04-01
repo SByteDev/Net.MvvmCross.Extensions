@@ -1,9 +1,9 @@
 name: CD
 
 on:
-  create:
-    tags:
-      - '*'
+  push:
+    branches:
+    - master
 
 jobs:
   build:
@@ -18,9 +18,19 @@ jobs:
     - name: Pack
       working-directory: ./SByteDev.MvvmCross.Extensions
       run: dotnet pack --configuration Release
-    - name: Setup NuGet config
-      run: sed 's/GITHUB_TOKEN/${{ secrets.GITHUB_TOKEN }}/g' .nuget.config > nuget.config
-    - name: GitHub Package Registry Push
-      run: nuget push /**/*.nupkg -Source "github" -SkipDuplicate
-    - name: NuGet Push
-      run: nuget push /**/*.nupkg -Source "nuget" -ApiKey ${{ secrets.NUGET_API_KEY }} -SkipDuplicate
+    - name: Setup GPR
+      uses: actions/setup-dotnet@v1.4.0
+      with:
+        source-url: https://nuget.pkg.github.com/SByteDev/index.json
+      env:
+        NUGET_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+    - name: Push to GPR
+      run: nuget push /**/*.nupkg -SkipDuplicate
+    - name: Setup NuGet
+      uses: actions/setup-dotnet@v1
+      with:
+        source-url: https://api.nuget.org/v3/index.json
+      env:
+        NUGET_AUTH_TOKEN: ${{ secrets.NUGET_API_KEY }}
+    - name: Push to NuGet
+      run: nuget push /**/*.nupkg -SkipDuplicate
