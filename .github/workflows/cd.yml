@@ -25,7 +25,7 @@ jobs:
       env:
         NUGET_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
     - name: Push to GPR
-      run: nuget push /**/*.nupkg -SkipDuplicate
+      run: dotnet nuget push /**/*.nupkg -SkipDuplicate
     - name: Setup NuGet
       uses: actions/setup-dotnet@v1
       with:
@@ -33,4 +33,4 @@ jobs:
       env:
         NUGET_AUTH_TOKEN: ${{ secrets.NUGET_API_KEY }}
     - name: Push to NuGet
-      run: nuget push /**/*.nupkg -SkipDuplicate
+      run: dotnet nuget push /**/*.nupkg -SkipDuplicate
