@@ -8,7 +8,7 @@ on:
 jobs:
   build:
     
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
 
     steps:
     - name: Checkout
@@ -19,4 +19,4 @@ jobs:
       working-directory: ./SByteDev.MvvmCross.Extensions
       run: dotnet pack --configuration Release
     - name: Push to NuGet
-      run: dotnet nuget push /**/*.nupkg --source https://api.nuget.org/v3/index.json --api-key ${{secrets.NUGET_API_KEY}} --skip-duplicate
+      run: dotnet nuget push /**/*.nupkg --source nuget.org --api-key ${{secrets.NUGET_API_KEY}} --skip-duplicate
