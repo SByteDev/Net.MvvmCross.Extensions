@@ -1,0 +1,25 @@
+name: CD
+
+on:
+  push:
+    branches:
+    - master
+
+jobs:
+  build:
+    
+    runs-on: ubuntu-latest
+    env:
+      working-directory: ./SByteDev.MvvmCross.Extensions
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2.0.0
+    - name: Setup
+      uses: actions/setup-dotnet@v1.4.0
+    - name: Pack
+      working-directory: ${{ env.working-directory }}
+      run: dotnet pack --configuration Release
+    - name: Push to NuGet
+      working-directory: ${{ env.working-directory }}
+      run: dotnet nuget push SByteDev.MvvmCross.Extensions/bin/Release/*.nupkg --source nuget.org --api-key ${{secrets.NUGET_API_KEY}} --skip-duplicate
