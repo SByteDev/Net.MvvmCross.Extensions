@@ -1,8 +1,8 @@
 # Extensions for MvvmCross
 ![GitHub](https://img.shields.io/github/license/SByteDev/Net.MvvmCross.Extensions.svg)
 ![Nuget](https://img.shields.io/nuget/v/SByteDev.MvvmCross.Extensions.svg)
-![CI](https://github.com/SByteDev/Net.MvvmCross.Extensions/workflows/CI/badge.svg)
-![CD](https://github.com/SByteDev/Net.MvvmCross.Extensions/workflows/CD/badge.svg)
+![CI](https://github.com/SByteDev/Net.MvvmCross.Extensions/workflows/CI/badge.svg?branch=develop)
+![CD](https://github.com/SByteDev/Net.MvvmCross.Extensions/workflows/CD/badge.svg?branch=master)
 [![codecov](https://codecov.io/gh/SByteDev/Net.MvvmCross.Extensions/branch/master/graph/badge.svg)](https://codecov.io/gh/SByteDev/Net.MvvmCross.Extensions)
 [![CodeFactor](https://www.codefactor.io/repository/github/sbytedev/net.mvvmcross.extensions/badge)](https://www.codefactor.io/repository/github/sbytedev/net.mvvmcross.extensions)
 
