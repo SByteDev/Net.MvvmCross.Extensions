@@ -10,7 +10,8 @@ jobs:
     
     runs-on: ubuntu-latest
     env:
-      working-directory: ./SByteDev.MvvmCross.Extensions
+      solution-directory: ./SByteDev.MvvmCross.Extensions
+      project-directory: SByteDev.MvvmCross.Extensions
 
     steps:
     - name: Checkout
@@ -18,8 +19,8 @@ jobs:
     - name: Setup
       uses: actions/setup-dotnet@v1.4.0
     - name: Pack
-      working-directory: ${{ env.working-directory }}
+      working-directory: ${{ env.solution-directory }}
       run: dotnet pack --configuration Release
     - name: Push to NuGet
-      working-directory: ${{ env.working-directory }}
-      run: dotnet nuget push SByteDev.MvvmCross.Extensions/bin/Release/*.nupkg --source nuget.org --api-key ${{secrets.NUGET_API_KEY}} --skip-duplicate
+      working-directory: ${{ env.solution-directory }}
+      run: dotnet nuget push ${{ env.project-directory }}/bin/Release/*.nupkg --source nuget.org --api-key ${{secrets.NUGET_API_KEY}} --skip-duplicate
