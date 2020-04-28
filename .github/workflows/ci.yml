@@ -10,7 +10,7 @@ jobs:
     
     runs-on: ubuntu-latest
     env:
-      working-directory: ./SByteDev.MvvmCross.Extensions
+      SOLUTION_DIR: ./SByteDev.MvvmCross.Extensions
 
     steps:
     - name: Checkout
@@ -18,8 +18,8 @@ jobs:
     - name: Setup
       uses: actions/setup-dotnet@v1.4.0
     - name: Test
-      working-directory: ${{ env.working-directory }}
+      working-directory: ${{ env.SOLUTION_DIR }}
       run: dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
     - name: Test Coverage
-      working-directory: ${{ env.working-directory }}
+      working-directory: ${{ env.SOLUTION_DIR }}
       run: curl -s https://codecov.io/bash | bash -s -- -t ${{secrets.CODECOV_TOKEN}} -Z
