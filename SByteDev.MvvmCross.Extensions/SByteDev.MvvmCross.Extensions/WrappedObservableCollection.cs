@@ -220,7 +220,7 @@ namespace SByteDev.MvvmCross.Extensions
             return _items.GetEnumerator();
         }
 
-        public void Dispose()
+        public virtual void Dispose()
         {
             Clear();
 
