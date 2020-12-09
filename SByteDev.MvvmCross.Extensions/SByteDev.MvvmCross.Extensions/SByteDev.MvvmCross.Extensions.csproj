@@ -3,7 +3,7 @@
     <PropertyGroup>
         <TargetFramework>netstandard2.0</TargetFramework>
         <PackageId>SByteDev.MvvmCross.Extensions</PackageId>
-        <PackageVersion>1.0.9</PackageVersion>
+        <PackageVersion>1.0.10</PackageVersion>
         <Title>MvvmCross Extensions</Title>
         <Description>A collection of extensions for MvvmCross.</Description>
         <Copyright>SByteDev</Copyright>
@@ -15,7 +15,7 @@
         <PackageProjectUrl>https://github.com/SByteDev/Net.MvvmCross.Extensions</PackageProjectUrl>
         <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
-        <PackageReleaseNotes>Update MvvmCross to 7.1.2 and Microsoft.NET.Test.Sdk to 16.8.3</PackageReleaseNotes>
+        <PackageReleaseNotes>Update SByteDev.Common.Extensions to 1.0.6</PackageReleaseNotes>
         <PublishRepositoryUrl>true</PublishRepositoryUrl>
         <RepositoryType>git</RepositoryType>
         <RepositoryUrl>https://github.com/SByteDev/Net.MvvmCross.Extensions</RepositoryUrl>
@@ -23,7 +23,7 @@
 
     <ItemGroup>
       <PackageReference Include="MvvmCross" Version="7.1.2" />
-      <PackageReference Include="SByteDev.Common.Extensions" Version="1.0.5" />
+      <PackageReference Include="SByteDev.Common.Extensions" Version="1.0.6" />
     </ItemGroup>
 
 </Project>
